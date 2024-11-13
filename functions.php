@@ -112,4 +112,31 @@ function checkDuplicateSubjectData($subject_data) {
     
     return false;  // No duplicates found
 }
+
+// Validates student data by checking if 'student_id', 'first_name', and 'last_name' are not empty.
+
+function validateStudentData($student_data) {
+    $errors = [];
+    if (empty($student_data['student_id'])) {
+        $errors[] = "Student ID is required";
+    }
+    if (empty($student_data['first_name'])) {
+        $errors[] = "First Name is required";
+    }
+    if (empty($student_data['last_name'])) {
+        $errors[] = "Last Name is required";
+    }
+    return $errors;
+}
+
+// Checks if a student with the same ID already exists in the session data.
+
+function checkDuplicateStudentData($student_data) {
+    foreach ($_SESSION['students'] as $student) {
+        if ($student['student_id'] === $student_data['student_id']) {
+            return "Duplicate Student ID";
+        }
+    }
+    return "";
+}
 ?>
