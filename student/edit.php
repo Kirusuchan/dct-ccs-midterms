@@ -22,7 +22,6 @@ if (!$studentData) {
 }
 
 $errors = [];
-$successMessage = "";
 
 // Handle form submission for updating student data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -33,19 +32,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'last_name' => trim($_POST['last_name']),
     ];
 
-    // Validate updated data
-    $errors = validateStudentData($updatedStudentData);
+    // Only check for empty inputs
+    if (empty($updatedStudentData['first_name'])) {
+        $errors[] = "First Name cannot be empty.";
+    }
+    if (empty($updatedStudentData['last_name'])) {
+        $errors[] = "Last Name cannot be empty.";
+    }
 
-    // If no validation errors, update the student data
+    // If no errors, update the student data and redirect
     if (empty($errors)) {
         $_SESSION['students'][$studentIndex] = $updatedStudentData;  // Update session data
-        $successMessage = "Student information updated successfully!";
-        // Optionally, redirect to register.php or another page after success
+        $_SESSION['success_message'] = "Student information updated successfully!";
         header("Location: register.php");
         exit;
     }
 }
-
 ?>
 
 <?php require_once '../header.php'; ?>
@@ -60,27 +62,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </ol>
     </nav>
 
-    <!-- Display success or error messages -->
-    <?php if ($successMessage): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($successMessage); ?></div>
+    <!-- Display error messages -->
+    <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Errors:</strong>
+            <ul>
+                <?php foreach ($errors as $error): ?>
+                    <li><?php echo htmlspecialchars($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     <?php endif; ?>
-    <?php echo displayErrors($errors); ?>
 
     <!-- Edit Student Form -->
     <div class="card mb-4">
         <div class="card-body">
-            <form method="POST" action="edit.php?id=<?php echo urlencode($student_id); ?>">
+            <form method="POST" action="edit.php?id=<?php echo urlencode($student_id); ?>" novalidate>
                 <div class="mb-3">
                     <label for="student_id" class="form-label">Student ID</label>
                     <input type="text" class="form-control" id="student_id" name="student_id" value="<?php echo htmlspecialchars($studentData['student_id']); ?>" readonly>
                 </div>
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo htmlspecialchars($studentData['first_name']); ?>" required>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo htmlspecialchars($studentData['first_name']); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($studentData['last_name']); ?>" required>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($studentData['last_name']); ?>">
                 </div>
                 <button type="submit" class="btn btn-primary">Update Student</button>
             </form>

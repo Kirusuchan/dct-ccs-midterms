@@ -55,13 +55,17 @@ function checkLoginCredentials($email, $password, $users) {
 
 function displayErrors($errors) {
     if (empty($errors)) return '';
-    $html = '<div class="alert alert-danger"><strong>System Errors</strong><ul>';
+    $html = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+    $html .= '<strong>System Errors:</strong><ul>';
     foreach ($errors as $error) {
         $html .= '<li>' . htmlspecialchars($error) . '</li>';
     }
-    $html .= '</ul></div>';
+    $html .= '</ul>';
+    $html .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+    $html .= '</div>';
     return $html;
 }
+
 
 // Takes an error message as input and returns a formatted HTML alert box containing the error message.
 
