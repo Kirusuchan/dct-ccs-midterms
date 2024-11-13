@@ -139,4 +139,48 @@ function checkDuplicateStudentData($student_data) {
     }
     return "";
 }
+
+// Finds and returns the index of a student in the $_SESSION['student_data'] array based on the provided $student_id.
+
+function getSelectedStudentIndex($student_id) {
+    foreach ($_SESSION['students'] as $index => $student) {
+        if ($student['student_id'] === $student_id) {
+            return $index;
+        }
+    }
+    return null;
+}
+
+// Retrieves a student's data from the session variable student_data based on the provided index.
+
+function getSelectedStudentData($index) {
+    return $_SESSION['students'][$index] ?? null;
+}
+
+// Checks if at least one subject is selected in the provided $subject_data.
+
+function validateAttachedSubject($subject_data) {
+    if (empty($subject_data)) {
+        return ["At least one subject should be selected"];
+    }
+    return [];
+}
+
+// Finds the index of a subject in the $_SESSION['subject_data'] array based on its $subject_code
+
+function getSelectedSubjectIndex($subject_code) {
+    foreach ($_SESSION['subjects'] as $index => $subject) {
+        if ($subject['subject_code'] === $subject_code) {
+            return $index;
+        }
+    }
+    return null;
+}
+
+// Retrieves subject data from the session variable $_SESSION['subject_data'] based on the provided index.
+
+function getSelectedSubjectData($index) {
+    return $_SESSION['subjects'][$index] ?? null;
+}
+
 ?>
