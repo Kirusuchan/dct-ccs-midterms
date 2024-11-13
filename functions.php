@@ -71,4 +71,13 @@ function renderErrorsToView($error) {
             . htmlspecialchars($error)
             . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
 }
+
+//Checks if a user is logged in by verifying the existence and non-emptiness of the email key in the $_SESSION superglobal array.
+
+function guard() {
+    if (!isset($_SESSION['email']) || empty($_SESSION['email'])) {
+        header("Location: index.php");
+        exit;
+    }
+}
 ?>
