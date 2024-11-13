@@ -16,7 +16,7 @@ function getUsers() {
     ];
 }
 
-//Checks if a user's session is active by verifying the existence of an email address in the session
+// Checks if a user's session is active by verifying the existence of an email address in the session
 
 function checkUserSessionIsActive() {
     if (isset($_SESSION['email']) && !empty($_SESSION['email'])) {
@@ -25,7 +25,7 @@ function checkUserSessionIsActive() {
     }
 }
 
-//Validates login credentials by checking if the provided email and password are valid.
+// Validates login credentials by checking if the provided email and password are valid.
 
 function validateLoginCredentials($email, $password) {
     $errors = [];
@@ -40,7 +40,7 @@ function validateLoginCredentials($email, $password) {
     return $errors;
 }
 
-//Checks if a given email and password match any user in the provided list of users.
+// Checks if a given email and password match any user in the provided list of users.
 
 function checkLoginCredentials($email, $password, $users) {
     foreach ($users as $user) {
@@ -51,7 +51,7 @@ function checkLoginCredentials($email, $password, $users) {
     return false;
 }
 
-//Takes an array of error messages ($errors) and returns a formatted HTML string displaying the errors in an unordered list, preceded by a bold heading "System Errors".
+// Takes an array of error messages ($errors) and returns a formatted HTML string displaying the errors in an unordered list, preceded by a bold heading "System Errors".
 
 function displayErrors($errors) {
     if (empty($errors)) return '';
@@ -63,7 +63,7 @@ function displayErrors($errors) {
     return $html;
 }
 
-//Takes an error message as input and returns a formatted HTML alert box containing the error message.
+// Takes an error message as input and returns a formatted HTML alert box containing the error message.
 
 function renderErrorsToView($error) {
     if (empty($error)) return '';
@@ -79,5 +79,37 @@ function guard() {
         header("Location: index.php");
         exit;
     }
+}
+
+// Validates subject data by checking if 'subject_code' and 'subject_name' are not empty.
+
+function validateSubjectData($subject_data) {
+    $errors = [];
+    
+    // Check if the subject code is empty
+    if (empty($subject_data['subject_code'])) {
+        $errors[] = "Subject Code is required";
+    }
+    
+    // Check if the subject name is empty
+    if (empty($subject_data['subject_name'])) {
+        $errors[] = "Subject Name is required";
+    }
+    
+    return $errors;
+}
+
+// Checks if a subject already exists in the session data by comparing its code or name with existing subjects.
+
+function checkDuplicateSubjectData($subject_data) {
+    // Assuming subjects are stored in session
+    foreach ($_SESSION['subjects'] as $subject) {
+        // Check if the subject code or name already exists
+        if ($subject['subject_code'] === $subject_data['subject_code'] || $subject['subject_name'] === $subject_data['subject_name']) {
+            return "Duplicate Subject: " . $subject_data['subject_code'] . " or " . $subject_data['subject_name'] . " already exists.";
+        }
+    }
+    
+    return false;  // No duplicates found
 }
 ?>
