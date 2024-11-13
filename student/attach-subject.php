@@ -1,4 +1,5 @@
 <?php
+$title = "Attach a Subject"; // Set the title
 session_start();
 require_once '../functions.php';
 require_once '../header.php';
