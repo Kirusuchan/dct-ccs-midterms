@@ -183,4 +183,20 @@ function getSelectedSubjectData($index) {
     return $_SESSION['subjects'][$index] ?? null;
 }
 
+function getBaseURL() {
+    // Check for HTTPS (if the connection is secure)
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    
+    // Get the server name (e.g., localhost, or actual domain)
+    $serverName = $_SERVER['SERVER_NAME'];
+    
+    // Check if there's a custom port and include it
+    $port = $_SERVER['SERVER_PORT'] != 80 ? ':' . $_SERVER['SERVER_PORT'] : '';  // Add the port if it's not 80
+    
+    // Get the base directory of the script
+    $baseDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+    
+    // Construct and return the full base URL
+    return $protocol . $serverName . $port . $baseDir;
+}
 ?>
