@@ -1,4 +1,5 @@
 <?php
+$title = "Dashboard"; // Set the title
 require_once 'header.php';
 require_once 'functions.php'; // Ensure functions.php is included
 

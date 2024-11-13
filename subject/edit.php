@@ -1,4 +1,5 @@
 <?php
+$title = "Edit Subject"; // Set the title
 require_once '../header.php'; // Include the header
 
 // Guard to restrict access to logged-in users only

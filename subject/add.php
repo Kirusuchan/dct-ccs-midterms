@@ -1,4 +1,5 @@
 <?php
+$title = "Add a Subject"; // Set the title
 require_once '../header.php'; // Include the header
 require_once '../functions.php'; // Include the functions file
 

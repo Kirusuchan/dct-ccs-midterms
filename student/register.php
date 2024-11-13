@@ -1,4 +1,5 @@
 <?php
+$title = "Register a Student"; // Set the title
 session_start();
 require_once '../functions.php';
 

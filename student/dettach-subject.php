@@ -1,4 +1,5 @@
 <?php
+$title = "Detach Subject"; // Set the title
 require_once '../header.php';
 require_once '../functions.php';
 

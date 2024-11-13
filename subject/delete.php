@@ -1,4 +1,5 @@
 <?php
+$title = "Delete Subject"; // Set the title
 require_once '../header.php'; // Include the header
 
 // Guard to ensure only logged-in users can access
