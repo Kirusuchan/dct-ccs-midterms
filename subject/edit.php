@@ -63,15 +63,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </ol>
 </nav>
 
+<!-- Display success message -->
+<?php if (!empty($successMessage)): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo htmlspecialchars($successMessage); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
 <!-- Display error messages -->
 <?php if (!empty($errors)): ?>
-    <div class="alert alert-danger">
-        <strong>System Errors</strong>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>System Errors:</strong>
         <ul>
             <?php foreach ($errors as $error): ?>
                 <li><?php echo htmlspecialchars($error); ?></li>
             <?php endforeach; ?>
         </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif; ?>
 
@@ -94,3 +103,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
 require_once '../footer.php'; // Include the footer
+?>

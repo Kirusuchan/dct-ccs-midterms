@@ -54,18 +54,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Display success message if student added -->
     <?php if (!empty($successMessage)): ?>
-        <div class="alert alert-success"><?php echo htmlspecialchars($successMessage); ?></div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo htmlspecialchars($successMessage); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     <?php endif; ?>
 
     <!-- Display error messages -->
     <?php if (!empty($errors)): ?>
-        <div class="alert alert-danger">
-            <strong>System Errors</strong>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>System Errors:</strong>
             <ul>
                 <?php foreach ($errors as $error): ?>
                     <li><?php echo htmlspecialchars($error); ?></li>
                 <?php endforeach; ?>
             </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
